@@ -6,77 +6,94 @@
 package com.mycompany.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
- * @author Grzegorz
+ * @author RENT
  */
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "accounts")
+public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column
-    private String name;
-    @Column
-    private String street;
-    @Column
-    private String city;
-    @Column
-    private String zipCode;
     
-    
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+    @Column
+    private BigDecimal debit;
+    @Column
+    private BigDecimal credit;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name="rent_id")
+    private Rent rent;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public String getName() {
-        return name;
+    public Date getDate() {
+        return date;
     }
 
-    public String getStreet() {
-        return street;
+    public BigDecimal getDebit() {
+        return debit;
     }
 
-    public String getCity() {
-        return city;
+    public BigDecimal getCredit() {
+        return credit;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Rent getRent() {
+        return rent;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setDebit(BigDecimal debit) {
+        this.debit = debit;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setCredit(BigDecimal credit) {
+        this.credit = credit;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setRent(Rent rent) {
+        this.rent = rent;
+    }
+
+
     
     
-    
-
     public Long getId() {
         return id;
     }
@@ -95,10 +112,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Account)) {
             return false;
         }
-        User other = (User) object;
+        Account other = (Account) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -107,7 +124,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.model.User[ id=" + id + " ]";
+        return "com.mycompany.model.Account[ id=" + id + " ]";
     }
     
 }

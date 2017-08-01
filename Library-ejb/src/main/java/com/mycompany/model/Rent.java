@@ -6,77 +6,87 @@
 package com.mycompany.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
- * @author Grzegorz
+ * @author RENT
  */
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "rents")
+public class Rent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date rentalDate;
     
     @Column
-    private String name;
-    @Column
-    private String street;
-    @Column
-    private String city;
-    @Column
-    private String zipCode;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date returnDate;
     
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
     
+    @ManyToOne
+    @JoinColumn(name="book_id")
+    private Book book;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public String getName() {
-        return name;
+    public Date getRentalDate() {
+        return rentalDate;
     }
 
-    public String getStreet() {
-        return street;
+    public Date getReturnDate() {
+        return returnDate;
     }
 
-    public String getCity() {
-        return city;
+    public User getUser() {
+        return user;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public Book getBook() {
+        return book;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRentalDate(Date rentalDate) {
+        this.rentalDate = rentalDate;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setBook(Book book) {
+        this.book = book;
     }
+  
     
     
     
-
+    
     public Long getId() {
         return id;
     }
@@ -95,10 +105,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Rent)) {
             return false;
         }
-        User other = (User) object;
+        Rent other = (Rent) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -107,7 +117,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.model.User[ id=" + id + " ]";
+        return "com.mycompany.model.Rent[ id=" + id + " ]";
     }
     
 }

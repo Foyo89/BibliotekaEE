@@ -6,37 +6,31 @@
 package com.mycompany.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
+import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author Grzegorz
+ * @author RENT
  */
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "authors")
+public class Author implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column
+    
     private String name;
-    @Column
-    private String street;
-    @Column
-    private String city;
-    @Column
-    private String zipCode;
-    
-    
+    @ManyToMany(mappedBy = "authors")
+    private Collection<Book> books;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -46,36 +40,21 @@ public class User implements Serializable {
         return name;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getZipCode() {
-        return zipCode;
+    public Collection<Book> getBooks() {
+        return books;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setBooks(Collection<Book> books) {
+        this.books = books;
     }
+    
+    
+    
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -95,10 +74,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Author)) {
             return false;
         }
-        User other = (User) object;
+        Author other = (Author) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -107,7 +86,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.model.User[ id=" + id + " ]";
+        return "com.mycompany.model.Author[ id=" + id + " ]";
     }
     
 }
