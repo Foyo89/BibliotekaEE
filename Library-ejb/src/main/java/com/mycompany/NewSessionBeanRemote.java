@@ -20,5 +20,6 @@ public interface NewSessionBeanRemote {
     
     public void addBook(String bookName);
     public List<String> getBooks();
+    public void addUser();
     
 }

@@ -23,6 +23,7 @@ public class ApplicationController {
     
     public String getText(){
         bean.addBook("Test");
+        bean.addUser();
         return "hsfadfsd";
     }
     

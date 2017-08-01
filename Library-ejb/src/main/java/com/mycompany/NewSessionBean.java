@@ -5,6 +5,7 @@
 package com.mycompany;
 
 import com.mycompany.model.Book;
+import com.mycompany.model.User;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -46,6 +47,22 @@ public class NewSessionBean implements NewSessionBeanRemote{
     public List<String> getBooks() {
        Query query = em.createQuery("from Book");
         return query.getResultList();
+    }
+    
+    @Override
+    public void addUser() {
+        try{
+            User u = new User();
+            u.setCity("Katowice");
+            u.setName("Grzegorz");
+            u.setStreet("Ordona");
+            u.setZipCode("40-164");
+            em.persist(u);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
     }
 
 }
