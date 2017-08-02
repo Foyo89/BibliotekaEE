@@ -11,9 +11,12 @@
         <ui:composition template = "index.xhtml">
 
             <ui:define name = "content">
+                <h:outputText value="#{testController.text}"></h:outputText>
+                
+                <h:outputText value="#{bookTableController.library}"></h:outputText>
                 
                 <h:dataTable styleClass="table table-striped"
-                             value="#{bookTableController.list}" var="book">
+                             value="#{bookTableController.library}" var="book">
                     <h:column>
                         <f:facet name="header">Tytuł</f:facet>
                             #{book.title}

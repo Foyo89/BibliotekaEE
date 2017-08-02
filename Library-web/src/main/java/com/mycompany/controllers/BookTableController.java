@@ -5,16 +5,17 @@
  */
 package com.mycompany.controllers;
 
+
 import com.mycompany.dto.BookDto;
 import com.mycompany.logic.BookBeanIfc;
 import com.mycompany.model.Book;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.modelmapper.ModelMapper;
+
 
 
 /**
@@ -34,21 +35,21 @@ public class BookTableController {
     
   
     
-     public List<BookDto> getList() {
-        List<Book> books = bbi.getBooks();
-        List<BookDto> collect = books.stream().map(this::map).collect(Collectors.toList());
+     public List<Book> getLibrary() {
+        //List<Book> books = bbi.getBooks();
+        //<BookDto> collect = books.stream().map(this::map).collect(Collectors.toList());
         
                
-        return collect;
+        return  bbi.getBooks();
     }
      
-        private BookDto map(Book b) {
-           ModelMapper mapper = new ModelMapper();
-           BookDto map = mapper.map(b, BookDto.class);
-           return map;
-       }
+//        private BookDto map(Book b) {
+//           ModelMapper mapper = new ModelMapper();
+//           BookDto map = mapper.map(b, BookDto.class);
+//           return map;
+//       }
         
-        private String getSomething(){
+        public String getSomething(){
             return "Test";
         }
 

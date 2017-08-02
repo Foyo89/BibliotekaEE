@@ -8,25 +8,7 @@
       >
     <body>
         <ui:composition>
-            <h:dataTable styleClass="table table-striped"
-                         value="#{bookTableController.list}" var="car">
-                <h:column>
-                    <f:facet name="header">Tytul</f:facet>
-                            #{car.bookTitle}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Nr rejesracyjny</f:facet>
-                            #{car.bookReleaseDate}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Mass</f:facet>
-                    <ui:repeat value="#{car.authors}" var="autor">
-                        <h:outputText value="#{autor.authorName}" />
-                    </ui:repeat>
-                </h:column>
-                
-            </h:dataTable>
-
+            
         </ui:composition>
     </body>
 </html>

@@ -7,10 +7,12 @@ package com.mycompany.logic;
 
 import com.mycompany.model.Author;
 import com.mycompany.model.Book;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -49,6 +51,15 @@ public class BookBean implements BookBeanIfc{
     public List<Book> getBooks() {
         List<Book> books = em.createQuery("FROM Book").getResultList();
         return books;
+        
+//        try {
+//            Query createQuery = em.createQuery("from Book b");
+//            return createQuery.getResultList();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            return new ArrayList();
+//        }
+
     }
     
 }
