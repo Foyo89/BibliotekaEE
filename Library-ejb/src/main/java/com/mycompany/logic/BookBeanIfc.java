@@ -7,6 +7,7 @@ package com.mycompany.logic;
 
 import com.mycompany.model.Author;
 import com.mycompany.model.Book;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -17,6 +18,7 @@ import javax.ejb.Local;
 public interface BookBeanIfc {
     Book addBook(Book book);
     Author addAuthor(Author author);
+    List<Book> getBooks();
 
     
 }

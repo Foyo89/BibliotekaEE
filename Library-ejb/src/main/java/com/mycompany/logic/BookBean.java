@@ -7,6 +7,7 @@ package com.mycompany.logic;
 
 import com.mycompany.model.Author;
 import com.mycompany.model.Book;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,6 +43,12 @@ public class BookBean implements BookBeanIfc{
     }
         
         return author;
+    }
+
+    @Override
+    public List<Book> getBooks() {
+        List<Book> books = em.createQuery("FROM Book").getResultList();
+        return books;
     }
     
 }
