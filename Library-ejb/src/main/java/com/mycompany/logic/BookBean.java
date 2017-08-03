@@ -79,5 +79,17 @@ public class BookBean implements BookBeanIfc{
             e.printStackTrace();
         } return null;
     }
+
+    @Override
+    public Book getBook(Long id) {
+        try{
+            Book book = (Book)em.createQuery("FROM Book Where id=:bID")
+                    .setParameter("bID", id)
+                    .getSingleResult();
+            return book;
+        }catch (Exception e){
+            e.printStackTrace();
+        }return null;
+    }
     
 }

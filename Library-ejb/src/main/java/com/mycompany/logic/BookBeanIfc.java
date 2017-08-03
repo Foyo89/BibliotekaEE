@@ -21,6 +21,7 @@ public interface BookBeanIfc {
     List<Book> getBooks();
     List<Author> getAuthors();
     Author getAuthor(Long id);
+    Book getBook(Long id);
 
     
 }

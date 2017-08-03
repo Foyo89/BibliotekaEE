@@ -35,7 +35,8 @@ public class AccountingBean implements AccountingBeanIfc{
             Account account = new Account();
             account.setUser(rent.getUser());
             account.setDebit(BigDecimal.TEN);
-            account.setDate(new Date());
+            account.setCredit(BigDecimal.ZERO);
+            account.setDate(rent.getRentalDate());
             account.setRent(rent);
             em.persist(account);
             return account.getDebit();
@@ -52,6 +53,7 @@ public class AccountingBean implements AccountingBeanIfc{
             Account account = new Account();
             account.setUser(user);
             account.setCredit(credit);
+            account.setDebit(BigDecimal.ZERO);
             account.setDate(new Date());
             em.persist(account);
             return account.getCredit();
@@ -64,23 +66,38 @@ public class AccountingBean implements AccountingBeanIfc{
 
     @Override
     public BigDecimal saldo(User user) {
+//        BigDecimal debit = BigDecimal.ZERO;
+//        BigDecimal credit = BigDecimal.ZERO;
+        BigDecimal saldo = BigDecimal.ZERO;
         
-        try{
-            BigDecimal debit = (BigDecimal)em.createQuery("SELECT SUM(debit) FROM Account a  Where a.user=:user")
-                    .setParameter("user", user)
-                    .getSingleResult();
-            BigDecimal credit = (BigDecimal)em.createQuery("SELECT SUM(credit) FROM Account a  Where a.user=:user")
-                    .setParameter("user", user)
-                    .getSingleResult();
-            BigDecimal saldo = new BigDecimal(0);
-            saldo.add(credit);
-            saldo.subtract(debit);
-            return saldo;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+        saldo = (BigDecimal) em.createQuery("SELECT SUM(a.credit)-SUM(a.debit) FROM Account a WHERE a.user=:user")
+                .setParameter("user", user)
+                .getSingleResult();
+        return saldo;
         
+//        try{
+//            debit = (BigDecimal)em.createQuery("SELECT SUM(debit) FROM Account a  Where a.user=:user")
+//                    .setParameter("user", user)
+//                    .getSingleResult();
+//        }catch (NullPointerException e){
+//            debit = BigDecimal.ZERO;
+//        }
+//            
+//            try{
+//                credit = (BigDecimal)em.createQuery("SELECT SUM(credit) FROM Account a  Where a.user=:user")
+//                    .setParameter("user", user)
+//                    .getSingleResult();          
+//            }catch (NullPointerException ex){
+//                credit = BigDecimal.ZERO;
+//            }
+            
+//            saldo.add(credit);
+//            saldo.subtract(debit);
+//            return saldo;
     }
+        
+    
     
 }
+    
+

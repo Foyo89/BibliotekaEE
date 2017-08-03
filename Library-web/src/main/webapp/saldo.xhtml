@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+    <body>
+        <ui:composition template = "index.xhtml">
+            <ui:define name = "content">
+                <div align="left">
+                    <h2>Pokaż saldo</h2><br></br>
+                    
+                    <br>Wybierz czytelnika</br>
+                    <f:view>
+                        <h:form>
+                            <h:selectOneListbox value="#{saldoController.userId}">
+                                <f:selectItems value="#{userTableController.users}" var="user" itemValue="#{user.id}" itemLabel="#{user.name}"/>
+                                
+                            </h:selectOneListbox>
+                            <br></br>
+                            <h:commandButton action="#{saldoController.setSaldo()}" value="Pokaż"/>
+                        </h:form>
+                    </f:view>
+                    
+                    <h3>Saldo wynosi:</h3>
+                    <h:outputText value="#{saldoController.saldo}"/>
+                    
+                </div>
+                
+                
+            </ui:define>
+            
+        </ui:composition>
+    </body>
+</html>

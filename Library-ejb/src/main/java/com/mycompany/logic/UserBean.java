@@ -60,7 +60,7 @@ public class UserBean implements UserBeanIfc {
     } 
 
     @Override
-    public Book rentBook(Long userId, Long bookId) {
+    public Rent rentBook(Long userId, Long bookId) {
         try{
             user = (User)em.createQuery("FROM User Where id=:user")
                    .setParameter("user", userId)
@@ -74,12 +74,14 @@ public class UserBean implements UserBeanIfc {
             rent.setUser(user);
             rent.setBook(book);
             em.persist(rent);
+            return rent;
            
         }catch(Exception e){
            e.printStackTrace();
+           return null;
         }
            
-           return book;
+           
     } 
     
 
@@ -91,5 +93,18 @@ public class UserBean implements UserBeanIfc {
         List<User> users = em.createQuery("FROM User").getResultList();
         
         return users;
+    }
+
+    @Override
+    public User getUser(Long id) {
+        try{
+            User user = (User)em.createQuery("FROM User Where id=:usrID")
+                    .setParameter("usrID", id)
+                    .getSingleResult();
+            return user;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

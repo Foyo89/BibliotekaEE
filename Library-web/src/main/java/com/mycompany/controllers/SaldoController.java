@@ -7,8 +7,8 @@ package com.mycompany.controllers;
 
 import com.mycompany.logic.AccountingBeanIfc;
 import com.mycompany.logic.UserBeanIfc;
-import com.mycompany.model.Rent;
 import com.mycompany.model.User;
+import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -17,40 +17,57 @@ import javax.faces.bean.RequestScoped;
  *
  * @author Grzegorz
  */
-
-@ManagedBean(name = "rentBookController")
+@ManagedBean(name = "saldoController")
 @RequestScoped
-public class RentBookController {
+public class SaldoController {
     
-    @EJB
-    private UserBeanIfc ubi;
+    private BigDecimal saldo;
+    private Long userId;
+    private User user;
+    
+    
     
     @EJB
     private AccountingBeanIfc abi;
     
-    private Long userId;
-    private Long bookId;
+    @EJB
+    private UserBeanIfc ubi;
 
     public Long getUserId() {
         return userId;
     }
 
-    public Long getBookId() {
-        return bookId;
-    }
-
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
+        this.setUser(userId);
     }
     
-    public void save(){
-        Rent rent = ubi.rentBook(this.userId, this.bookId);    
-        abi.doDebit(rent);
-        
+    
+
+    public User getUser() {
+        return user;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    public void setUser(Long id) {
+        this.user = ubi.getUser(id);
+    }
+    
+    public void setSaldo(){
+        this.saldo = abi.saldo(user);
+    }
+    
+    public BigDecimal getSaldo(){
+        return this.saldo;
+    }
+    
+    
+    
+    
+    
+    
     
 }
