@@ -8,7 +8,21 @@
       >
     <body>
         <ui:composition>
-            
+            <h2>Autorzy:</h2>
+                <h:dataTable styleClass="table table-bordered"
+                             value="#{bookTableController.authors}" var="author">
+                    <h:column>
+                        <f:facet name="header">Nazwa</f:facet>
+                            #{author.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Książki</f:facet>
+                        <ui:repeat value="#{author.books}" var="book">
+                            <h:outputText value="#{book.title}" />
+                        </ui:repeat>
+                    </h:column>
+                    
+                </h:dataTable>
         </ui:composition>
     </body>
 </html>

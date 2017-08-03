@@ -61,5 +61,23 @@ public class BookBean implements BookBeanIfc{
 //        }
 
     }
+
+    @Override
+    public List<Author> getAuthors() {
+        List<Author> authors = em.createQuery("FROM Author").getResultList();
+        return authors;
+    }
+
+    @Override
+    public Author getAuthor(Long id) {
+        try{
+            Author author = (Author)em.createQuery("FROM Author Where id=:autID")
+                    .setParameter("autID", id)
+                    .getSingleResult();
+            return author;
+        }catch (Exception e){
+            e.printStackTrace();
+        } return null;
+    }
     
 }

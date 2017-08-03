@@ -11,12 +11,12 @@
         <ui:composition template = "index.xhtml">
 
             <ui:define name = "content">
-                <h:outputText value="#{testController.text}"></h:outputText>
                 
-                <h:outputText value="#{bookTableController.library}"></h:outputText>
                 
-                <h:dataTable styleClass="table table-striped"
-                             value="#{bookTableController.library}" var="book">
+                
+                <h2 align="left">Książki:</h2>
+                <h:dataTable styleClass="table table-bordered"
+                             value="#{bookTableController.books}" var="book">
                     <h:column>
                         <f:facet name="header">Tytuł</f:facet>
                             #{book.title}
@@ -32,11 +32,63 @@
                     <h:column>
                         <f:facet name="header">Autorzy</f:facet>
                         <ui:repeat value="#{book.authors}" var="author">
-                            <h:outputText value="#{author.name}" />
+                            <h:outputText value="#{author.name}"/><br/>
                         </ui:repeat>
                     </h:column>
                     
                 </h:dataTable>
+                <div align="left">
+                <h3>Dodaj książkę</h3>
+                <f:view>
+                    <h:form styleClass="form-horizontal">
+                        <br>Tytuł:<h:inputText title="Tytuł" value="#{bookController.title}"/></br>
+                        <br>ISBN:<h:inputText title="ISBN" value="#{bookController.isbn}"/></br>
+                        <br>Rok wydania:<h:inputText title="Rok wydania:" value="#{bookController.releaseDate}"/></br>
+                        <br>Autorzy:</br><h:selectManyListbox title="Autorzy:" value="#{bookController.authors}">
+                            <f:selectItems value="#{bookTableController.authors}" var="aut" itemValue="#{aut.id}" itemLabel="#{aut.name}"/>
+                        </h:selectManyListbox>   
+                            
+                        <br></br>
+                        <h:commandButton action="#{bookController.save()}" value="Zapisz"/>
+                        
+                        
+                    </h:form>
+                </f:view>
+                </div>
+                
+                <h2 align="left">Autorzy:</h2>
+                <h:dataTable styleClass="table table-bordered"
+                             value="#{bookTableController.authors}" var="author">
+                    <h:column>
+                        <f:facet name="header">Nazwa</f:facet>
+                            #{author.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Książki</f:facet>
+                        <ui:repeat value="#{author.books}" var="book">
+                            <h:outputText value="#{book.title}" /><br/>
+                        </ui:repeat>
+                    </h:column>
+                    
+                </h:dataTable>
+                
+                <div align="left">
+                <h3>Dodaj Autora</h3>
+                <f:view>
+                    <h:form styleClass="form-horizontal">
+                        <br>Nazwa:<h:inputText value="#{addAuthorController.name}"/></br><br></br>  
+                        <h:commandButton action="#{addAuthorController.save()}" value="Zapisz"/>
+                        
+                        
+                    </h:form>
+                    
+                </f:view>
+                
+                </div>
+                
+                
+
+                
                      
             </ui:define>
             

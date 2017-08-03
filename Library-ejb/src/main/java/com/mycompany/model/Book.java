@@ -40,10 +40,10 @@ public class Book implements Serializable {
     @Column(name = "date")
     private int releaseDate;
     
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "books_authors", 
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name="book_id"))
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name="author_id"))
     private Collection<Author> authors;
 
 

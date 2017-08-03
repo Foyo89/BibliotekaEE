@@ -8,6 +8,7 @@ package com.mycompany.controllers;
 
 import com.mycompany.dto.BookDto;
 import com.mycompany.logic.BookBeanIfc;
+import com.mycompany.model.Author;
 import com.mycompany.model.Book;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class BookTableController {
     
   
     
-     public List<Book> getLibrary() {
+     public List<Book> getBooks() {
         //List<Book> books = bbi.getBooks();
         //<BookDto> collect = books.stream().map(this::map).collect(Collectors.toList());
         
@@ -52,6 +53,19 @@ public class BookTableController {
         public String getSomething(){
             return "Test";
         }
+        
+        public List<Author> getAuthors(){
+            return bbi.getAuthors();
+        }
+        
+        public Book addBook(Book book) {
+            
+            
+            bbi.addBook(book);
+            return book;
+        }
+        
+        
 
 
     
