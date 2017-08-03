@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <body>
+        <ui:composition template="index.xhtml">
+            <ui:define name = "content">
+            <h2>Czytelnicy:</h2>
+                <h:dataTable styleClass="table table-bordered"
+                             value="#{userTableController.users}" var="user">
+                    <h:column>
+                        <f:facet name="header">Nazwa</f:facet>
+                            #{user.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Miasto</f:facet>
+                            #{user.city}             
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Ulica</f:facet>
+                            #{user.street}             
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Kod pocztowy</f:facet>
+                            #{user.zipCode}             
+                    </h:column>
+                    
+                </h:dataTable>
+            <div align="left">
+            <h2 align="left">Dodaj czytelnika</h2>
+            
+            <f:view>
+                    <h:form styleClass="form-horizontal">
+                        <br>Nazwa:<h:inputText value="#{addUserController.name}"/></br>  
+                        <br>Miasto:<h:inputText value="#{addUserController.city}"/></br>
+                        <br>Ulica:<h:inputText value="#{addUserController.street}"/></br>
+                        <br>Kod pocztowy:<h:inputText value="#{addUserController.zipCode}"/></br>
+                        <h:commandButton action="#{addUserController.save()}" value="Zapisz"/>
+                        
+                        
+                    </h:form>
+                    
+                </f:view>
+            </div>
+            
+            
+            <div align="left">
+                <h2>Wypożycz książkę</h2>
+                <f:view>
+                    <h:form styleClass="form-horizontal">
+                        <br>Wybierz czytelnika:</br>
+                        <h:selectOneListbox value="#{rentBookController.userId}">
+                            <f:selectItems value="#{userTableController.users}" var="user" itemValue="#{user.id}" itemLabel="#{user.name}"/>
+                        </h:selectOneListbox>
+                        <br></br>
+                        <br>Wybierz książkę</br>
+                        <h:selectOneListbox value="#{rentBookController.bookId}">
+                            <f:selectItems value="#{bookTableController.books}" var="book" itemValue="#{book.id}" itemLabel="#{book.title}"/>
+                        </h:selectOneListbox>
+                        <br></br>
+                        <h:commandButton action="#{rentBookController.save()}" value="Zapisz"/>
+                    </h:form>
+                    
+                </f:view>
+                
+            </div>
+            
+            <h2>Wypożyczone książki</h2>
+            <h:dataTable styleClass="table table-bordered"
+                         value="#{rentTableController.rents}" var="rent">
+                <h:column>
+                    <f:facet name="header">Książka</f:facet>
+                    #{rent.book.title}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Czytelnik</f:facet>
+                    #{rent.user.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Data wypożyczenia</f:facet>
+                    #{rent.rentalDate}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Data zwrotu</f:facet>
+                    #{rent.returnDate}
+                </h:column>
+            
+            </h:dataTable>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

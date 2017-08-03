@@ -9,6 +9,7 @@ import com.mycompany.model.Book;
 import com.mycompany.model.Rent;
 import com.mycompany.model.User;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -49,7 +50,7 @@ public class UserBean implements UserBeanIfc {
     
     
     @Override
-    public User createUser() {
+    public User createUser(User user) {
         try{
             em.persist(user);      
         }catch(Exception e){
@@ -84,4 +85,11 @@ public class UserBean implements UserBeanIfc {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+    @Override
+    public List<User> getUsers() {
+        List<User> users = em.createQuery("FROM User").getResultList();
+        
+        return users;
+    }
 }

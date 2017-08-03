@@ -5,21 +5,17 @@
  */
 package com.mycompany.logic;
 
-import com.mycompany.model.Book;
-import com.mycompany.model.User;
+import com.mycompany.model.Rent;
 import java.util.List;
 import javax.ejb.Local;
-import javax.ejb.Remote;
 
 /**
  *
- * @author RENT
+ * @author Grzegorz
  */
-@Local
-@Remote
-public interface UserBeanIfc {
-    public User createUser(User user);
-    public Book rentBook(Long userId, Long bookId);
-    public List<User> getUsers();
 
+@Local
+public interface RentBeanIfc {
+    
+    List<Rent> getRents();
 }
